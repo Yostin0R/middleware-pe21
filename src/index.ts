@@ -2,6 +2,8 @@ import express from 'express';
 import type { Request, Response, NextFunction } from 'express';
 import { requestLogger } from './middlewares/logger.js';
 import { requireApiKey } from './middlewares/auth.js';
+import v1Inscripciones from './routes/v1/inscripciones.js';   // nuevo
+import v2Inscripciones from './routes/v2/inscripciones.js';   // nuevo
 
 const app = express();
 
@@ -13,7 +15,9 @@ app.get('/health', (_req: Request, res: Response) => {
   res.json({ status: 'ok', ts: new Date().toISOString() });
 });
 
-// Manejador de errores: siempre al final, con cuatro parámetros
+app.use('/v1/inscripciones', v1Inscripciones);   // nuevo
+app.use('/v2/inscripciones', v2Inscripciones);   // nuevo
+
 app.use((_err: Error, _req: Request, res: Response, _next: NextFunction) => {
   res.status(500).json({ error: 'Error interno del servidor' });
 });

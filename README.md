@@ -50,3 +50,57 @@ http://localhost:3000/noexiste
   nvokeWebRequestCommand
  
 PS D:\Universidad\Programacion Middleware\middleware-pe21> 
+
+
+PS D:\Universidad\Programacion Middleware\middleware-pe21> Invoke-RestMethod -Method POST "http://localhost:3000/v1/inscripciones" `
+>>   -Headers @{ "x-api-key" = "secreto-demo" } `
+>>   -ContentType "application/json" `
+>>   -Body '{"estudianteId":"uuid-123","materias":["LTI_05A_458"],"periodoId":"2026-1"}'
+
+version estudianteId materias      periodoId
+------- ------------ --------      ---------
+v1      uuid-123     {LTI_05A_458} 2026-1   
+
+
+PS D:\Universidad\Programacion Middleware\middleware-pe21> Invoke-RestMethod -Method POST "http://localhost:3000/v2/inscripciones" `
+>>   -Headers @{ "x-api-key" = "secreto-demo" } `
+>>   -ContentType "application/json" `
+>>   -Body '{"estudianteId":"uuid-123","materias":["LTI_05A_458"],"periodoId":"2026-1","payment_method":"scholarship"}'
+
+
+version        : v2
+estudianteId   : uuid-123
+materias       : {LTI_05A_458}
+periodoId      : 2026-1
+payment_method : scholarship
+
+
+
+PS D:\Universidad\Programacion Middleware\middleware-pe21> Invoke-RestMethod -Method POST "http://localhost:3000/v2/inscripciones" `
+>>   -Headers @{ "x-api-key" = "secreto-demo" } `
+>>   -ContentType "application/json" `
+>>   -Body '{"estudianteId":"uuid-123","materias":["LTI_05A_458"],"periodoId":"2026-1"}'
+Invoke-RestMethod : {"error":"Campos requeridos: estudianteId, materias, periodoId, 
+payment_method"}
+En línea: 1 Carácter: 1
++ Invoke-RestMethod -Method POST "http://localhost:3000/v2/inscripcione ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (System.Net.HttpWebRequest:HttpWebRequest 
+   ) [Invoke-RestMethod], WebException
+    + FullyQualifiedErrorId : WebCmdletWebResponseException,Microsoft.PowerShell.Commands 
+   .InvokeRestMethodCommand
+PS D:\Universidad\Programacion Middleware\middleware-pe21> 
+PS D:\Universidad\Programacion Middleware\middleware-pe21> Invoke-RestMethod -Method POST "http://localhost:3000/v2/inscripciones" `
+>>   -Headers @{ "x-api-key" = "secreto-demo" } `
+>>   -ContentType "application/json" `
+>>   -Body '{"estudianteId":"uuid-123","materias":["LTI_05A_458"],"periodoId":"2026-1","payment_method":"cash"}'
+Invoke-RestMethod : {"error":"payment_method inválido. Valores: debit, credit, 
+scholarship"}
+En línea: 1 Carácter: 1
++ Invoke-RestMethod -Method POST "http://localhost:3000/v2/inscripcione ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (System.Net.HttpWebRequest:HttpWebRequest 
+   ) [Invoke-RestMethod], WebException
+    + FullyQualifiedErrorId : WebCmdletWebResponseException,Microsoft.PowerShell.Commands 
+   .InvokeRestMethodCommand
+PS D:\Universidad\Programacion Middleware\middleware-pe21> 
