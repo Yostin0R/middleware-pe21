@@ -104,3 +104,17 @@ En línea: 1 Carácter: 1
     + FullyQualifiedErrorId : WebCmdletWebResponseException,Microsoft.PowerShell.Commands 
    .InvokeRestMethodCommand
 PS D:\Universidad\Programacion Middleware\middleware-pe21> 
+
+## Validación OpenAPI
+
+Resultado de `npx @redocly/cli lint openapi.yaml`:
+
+![Redocly lint sin errores](docs/screenshots/lint-sin-errores.png)
+
+
+## Reflexión de consumo externo de la API
+
+Si otro equipo tuviera que empezar a consumir mi APIconsidero que una de las primeras mejoras que hariaen el contrato OpenAPI sería definir de manera mas detallada las respuestas de error para todos los endpoints. Actualmente se indican los codigos de estado que puede devolver la API  pero no siempre queda claro cual es la estructura exacta del mensaje que recibirá el cliente cuando ocurra un error.
+
+Por ejemplo  en el endpoint  /v2/inscripciones  existen validaciones para el campo  payment_method   pero seria util documentar mediante un esquema comun como se devuelven estos errores y qué información contiene cada respuesta esto permitiria que los desarrolladores que integren la API puedan manejar las excepciones de forma mas sencilla y uniforme.
+
