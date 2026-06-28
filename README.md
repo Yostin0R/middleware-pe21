@@ -118,3 +118,32 @@ Si otro equipo tuviera que empezar a consumir mi APIconsidero que una de las pri
 
 Por ejemplo  en el endpoint  /v2/inscripciones  existen validaciones para el campo  payment_method   pero seria util documentar mediante un esquema comun como se devuelven estos errores y qué información contiene cada respuesta esto permitiria que los desarrolladores que integren la API puedan manejar las excepciones de forma mas sencilla y uniforme.
 
+## Seguridad JWT (PE-2.3)
+
+### Generar un token de prueba
+
+```bash
+# Con el secreto por defecto del laboratorio:
+TOKEN=$(node generate-token.mjs)
+
+# Con secreto personalizado:
+JWT_SECRET=mi-secreto-largo TOKEN=$(node generate-token.mjs)
+```
+
+### Probar el servicio
+
+```bash
+# Peticion valida (esperado: 201)
+curl -X POST http://localhost:3000/v2/inscripciones \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"estudianteId":"uuid-123","materias":["LTI_05A_458"],"periodoId":"2026-1","payment_method":"scholarship"}'
+
+# Token invalido (esperado: 401)
+curl -X POST http://localhost:3000/v2/inscripciones \
+  -H "Authorization: Bearer token.invalido.xxx"
+```
+
+### Variables de entorno
+
+Copia `.env.example` a `.env` y configura `JWT_SECRET` con un valor secreto 
